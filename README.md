@@ -13,8 +13,8 @@
 
 ```bash
 # 1. 装依赖（零第三方依赖，只要 Node 18+）
-git clone <你的仓库地址>
-cd mcd-dex
+git clone https://github.com/gaoyifei96/MCD-DEX.git
+cd MCD-DEX
 
 # 2. 申请 MCP Token：https://open.mcd.cn/mcp （手机号登录，5 步搞定）
 cp .env.example .env
