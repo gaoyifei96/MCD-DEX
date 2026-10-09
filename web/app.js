@@ -384,9 +384,40 @@
     refresh();
   }
 
+  /* ---------------- 数据加载（需兼容三种部署形态） ----------------
+   * index.html 里的静态 script 标签写的是 ../data/catalog.js，在本地目录结构下最快。
+   * 但站点被部署成「index.html 与 data 同级」时（例如 GitHub Pages 的产物形态），
+   * 这个相对路径会失效 —— 此时浏览器连请求都不会发，页面会一直停在初始文案。
+   * 所以这里兜一层动态回退：依次尝试其余常见位置，拿到数据再 boot。
+   */
+  var FALLBACKS = ['./data/catalog.js', 'data/catalog.js', '../data/catalog.js'];
+
+  function bootWithFallback() {
+    if (window.__MCD_CATALOG__) {
+      boot();
+      return;
+    }
+    var i = 0;
+    (function next() {
+      if (i >= FALLBACKS.length) {
+        var el = document.getElementById('storeName');
+        if (el) el.textContent = '未找到数据文件，请先运行 src/collector.mjs 生成 data/catalog.js';
+        return;
+      }
+      var s = document.createElement('script');
+      s.src = FALLBACKS[i++];
+      s.onload = function () {
+        if (window.__MCD_CATALOG__) boot();
+        else next();
+      };
+      s.onerror = next;
+      document.head.appendChild(s);
+    })();
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
+    document.addEventListener('DOMContentLoaded', bootWithFallback);
   } else {
-    boot();
+    bootWithFallback();
   }
 })();
