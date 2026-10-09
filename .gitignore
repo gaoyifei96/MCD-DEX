@@ -1,0 +1,17 @@
+# 真实 Token 与本地采集结果不入库
+.env
+*.local
+
+# 采集产物：含个人化的门店与订单信息，默认不提交。
+# 若要开源一份示例数据，请先自行确认已脱敏，再显式 git add -f
+data/catalog.json
+data/collection.json
+
+# data/catalog.js 是脱敏后的公开示例（不含凭证、不含手机号与门牌地址），需要提交，
+# 这样别人 clone 下来双击 index.html 就能直接玩
+!data/catalog.js
+
+node_modules/
+.DS_Store
+Thumbs.db
+*.log

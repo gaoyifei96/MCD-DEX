@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麦麦图鉴 · 1024 合成</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <header class="hero">
+    <div class="hero-main">
+      <h1>麦麦图鉴 <span class="hero-sub">/ MCD-DEX</span></h1>
+      <p class="hero-store" id="storeName">载入中…</p>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">收集度</span>
+        <span class="stat-value" id="statCollected">0%</span>
+        <span class="stat-hint">含游戏合成</span>
+      </div>
+      <div class="stat stat-gold">
+        <span class="stat-label">品鉴度</span>
+        <span class="stat-value" id="statTasted">0%</span>
+        <span class="stat-hint">真实消费 · 不可刷</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">已解锁</span>
+        <span class="stat-value" id="statCount">0</span>
+        <span class="stat-hint" id="statTotal">/ 0</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="dex">图鉴</button>
+    <button class="tab" data-tab="game">1024 合成</button>
+  </nav>
+
+  <!-- ============ 图鉴 ============ -->
+  <section class="panel active" id="panel-dex">
+    <div class="filterbar">
+      <input type="search" id="searchBox" placeholder="搜索餐品…">
+      <div class="filter-group">
+        <button class="chip active" data-filter="all">全部</button>
+        <button class="chip" data-filter="unlocked">已解锁</button>
+        <button class="chip" data-filter="locked">未解锁</button>
+      </div>
+    </div>
+    <div id="dexBody"></div>
+  </section>
+
+  <!-- ============ 游戏 ============ -->
+  <section class="panel" id="panel-game">
+    <div class="game-wrap">
+      <div class="game-side">
+        <div class="score-box">
+          <span class="score-label">最高合成</span>
+          <span class="score-value" id="score">0</span>
+          <span class="score-target">目标 1024</span>
+        </div>
+        <div class="score-row">
+          <div class="mini"><span id="bestScore">0</span><em>历史最高</em></div>
+          <div class="mini"><span id="moveCount">0</span><em>步数</em></div>
+        </div>
+        <button class="btn" id="btnRestart">重开一局</button>
+
+        <div class="chain">
+          <div class="chain-title">进化链 · 分值即 2 的幂</div>
+          <div id="chainList"></div>
+        </div>
+        <p class="rule">滑动或方向键合并相同餐品。合成出的新餐品会自动点亮图鉴，但<b>限定与周边只能通过真实获得</b>。</p>
+      </div>
+
+      <div class="game-board-area">
+        <div class="board" id="board"></div>
+        <div class="overlay" id="overlay">
+          <div class="overlay-card">
+            <h2 id="ovTitle">通关</h2>
+            <p id="ovDesc"></p>
+            <div class="ov-actions">
+              <button class="btn" id="btnAgain">再来一局</button>
+              <button class="btn btn-ghost" id="btnCard">保存战绩卡</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>数据来自麦当劳中国官方 MCP Server · 本项目为参赛作品，非麦当劳官方产品</p>
+    <p class="foot-dim">餐品信息、价格及供应状态以麦当劳官方渠道实时结果为准</p>
+  </footer>
+</div>
+
+<canvas id="cardCanvas" width="1080" height="1350" style="display:none"></canvas>
+<script src="../data/catalog.js"></script>
+<script src="game.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
